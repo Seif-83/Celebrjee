@@ -948,12 +948,14 @@ footer {
   .nav-logo { font-size: 22px; letter-spacing: 3px; }
   .nav-icons { gap: 12px; }
   
-  .hero-left { padding: 100px 20px 30px; }
-  .hero-title { font-size: 44px; }
-  .hero-desc { font-size: 14px; margin-bottom: 30px; }
-  .hero-candle-svg { width: 200px; height: auto; }
-  .hero-stats { gap: 20px; }
-  .stat-num { font-size: 24px; }
+  .hero-left { padding: 80px 24px 20px; }
+  .hero-title { font-size: 38px; line-height: 1.1; margin-bottom: 24px; }
+  .hero-desc { font-size: 13px; margin-bottom: 30px; opacity: 0.9; }
+  .hero-ctas { flex-direction: column; width: 100%; gap: 12px; }
+  .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 14px 20px; }
+  .hero-candle-svg { width: 180px; height: auto; }
+  .hero-stats { gap: 15px; margin-top: 30px; }
+  .stat-num { font-size: 22px; }
   
   section { padding: 50px 20px; }
   .section-title { font-size: 36px; }
