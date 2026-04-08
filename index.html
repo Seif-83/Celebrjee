@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celebrjee — Candles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/jpeg" href="public/Celebrjee.jpeg" />
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Cart Overlay (Shared with Mobile Menu) -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeAllDrawers()"></div>
+
+<!-- Cart Drawer -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <span class="cart-title">Your Basket</span>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">Your basket is empty,<br>let's change that ✦</div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">0 EGP</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Added to basket ✦</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+  <a href="#" class="nav-logo">Celebr<span>jee</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#collection" onclick="toggleMenu()">Collection</a></li>
+    <li><a href="#story" onclick="toggleMenu()">Our Story</a></li>
+    <li><a href="#categories" onclick="toggleMenu()">Categories</a></li>
+    <li><a href="#scents" onclick="toggleMenu()">Scent Finder</a></li>
+  </ul>
+  <div class="nav-icons">
+    <button onclick="toggleCart()" class="cart-btn">
+      <svg width="22" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">✦ Handcrafted Luxury Candles</p>
+    <h1 class="hero-title">Light your<br><em>world</em> with<br>warmth</h1>
+    <p class="hero-desc">Every Celebrjee candle is an invitation to slow down, breathe deeply, and let the scent carry you somewhere beautiful.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">Shop Collection</button>
+      <button class="btn-ghost" onclick="document.getElementById('scents').scrollIntoView({behavior:'smooth'})">Discover Scents</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-shape"></div>
+    <div class="hero-candle-scene">
+      <svg class="hero-candle-svg" width="260" height="380" viewBox="0 0 260 380" fill="none">
+        <!-- Large candle jar -->
+        <ellipse cx="130" cy="348" rx="78" ry="16" fill="#c4b49a" opacity="0.4"/>
+        <rect x="52" y="160" width="156" height="188" rx="14" fill="#ede5d5"/>
+        <rect x="52" y="160" width="156" height="20" rx="14" fill="#d9cbb5"/>
+        <ellipse cx="130" cy="160" rx="78" ry="14" fill="#c4b49a"/>
+        <!-- Wax surface -->
+        <ellipse cx="130" cy="162" rx="68" ry="10" fill="#f5f0e8"/>
+        <!-- Label -->
+        <rect x="68" y="220" width="124" height="90" rx="4" fill="white" opacity="0.5"/>
+        <text x="130" y="248" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#5c4433" font-style="italic">Celebrjee</text>
+        <line x1="78" y1="256" x2="182" y2="256" stroke="#d9cbb5" stroke-width="0.8"/>
+        <text x="130" y="272" text-anchor="middle" font-family="Jost, sans-serif" font-size="8" fill="#a89070" letter-spacing="3">made with love</text>
+        <text x="130" y="292" text-anchor="middle" font-family="Jost, sans-serif" font-size="7" fill="#c4b49a" letter-spacing="2">SOY WAX · 50HR BURN</text>
+        <!-- Wick -->
+        <line x1="130" y1="162" x2="130" y2="130" stroke="#5c4433" stroke-width="1.5"/>
+        <!-- Flame group -->
+        <g class="flame-anim">
+          <!-- Outer glow -->
+          <ellipse cx="130" cy="118" rx="18" ry="22" fill="#f5e6c0" opacity="0.3"/>
+          <!-- Inner flame -->
+          <path d="M130 95 C122 108 118 118 122 126 C124 130 128 132 130 132 C132 132 136 130 138 126 C142 118 138 108 130 95Z" fill="url(#flameGrad)"/>
+          <!-- Core -->
+          <ellipse cx="130" cy="122" rx="5" ry="8" fill="#fff5d6" opacity="0.8"/>
+        </g>
+        <!-- Decorative lines on jar -->
+        <line x1="52" y1="190" x2="208" y2="190" stroke="#d9cbb5" stroke-width="0.5" opacity="0.5"/>
+        <line x1="52" y1="330" x2="208" y2="330" stroke="#d9cbb5" stroke-width="0.5" opacity="0.5"/>
+        <defs>
+          <linearGradient id="flameGrad" x1="130" y1="95" x2="130" y2="132" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#fff5a0"/>
+            <stop offset="50%" stop-color="#ffb347"/>
+            <stop offset="100%" stop-color="#e05c00"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">120+</span><span class="stat-label">Scents</span></div>
+    <div class="stat"><span class="stat-num">50hr</span><span class="stat-label">Burn Time</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Soy Wax</span></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Handcrafted</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Pure Soy Wax</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Free Shipping Over 1000 EGP</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Cruelty Free</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Eco Friendly</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">50-Hour Burn Time</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Handcrafted</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Pure Soy Wax</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Free Shipping Over 1000 EGP</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Cruelty Free</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Eco Friendly</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">50-Hour Burn Time</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- COLLECTION -->
+<section id="collection" style="background: var(--cream);">
+  <div class="collection-header reveal">
+    <div id="collectionTitle">
+      <p class="section-tag">✦ Featured</p>
+      <h2 class="section-title">Our <em>Finest</em> Collection</h2>
+    </div>
+    <div id="filterUI" style="display: none; align-items: center; gap: 15px;">
+       <span id="activeFilterName" style="font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--bronze); font-style: italic;"></span>
+       <a href="javascript:void(0)" class="collection-link" onclick="filterCategory('all')" style="border-color: var(--bronze); color: var(--bronze);">✕ Clear Filter</a>
+    </div>
+    <a href="javascript:void(0)" id="viewAllBtn" class="collection-link" onclick="toggleProducts(this)">View All Products</a>
+  </div>
+  <div class="products-grid-wrapper" id="productsWrapper">
+    <div class="products-grid">
+
+    <!-- Product 1 -->
+    <div class="product-card reveal" data-category="candles" style="transition-delay:0.1s">
+      <div class="product-img-wrap">
+        <span class="product-badge">Best Seller</span>
+        <img src="public/Iced coffee.jpeg" alt="Iced Coffee" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Iced Coffee', 400)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Iced Coffee</div>
+        <div class="product-scent">Cool · Refreshing · Bold</div>
+        <div class="product-footer">
+          <div class="product-price">400 EGP</div>
+          <button class="add-btn" onclick="addToCart('Iced Coffee', 400)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card reveal" data-category="candles" style="transition-delay:0.2s">
+      <div class="product-img-wrap">
+        <img src="public/Iced love.jpeg" alt="Iced Love" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Iced Love', 400)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Iced Love</div>
+        <div class="product-scent">Sweet · Chilled · Romantic</div>
+        <div class="product-footer">
+          <div class="product-price">400 EGP</div>
+          <button class="add-btn" onclick="addToCart('Iced Love', 400)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card reveal" data-category="candles" style="transition-delay:0.3s">
+      <div class="product-img-wrap">
+        <span class="product-badge" style="background:var(--warm-brown)">New</span>
+        <img src="public/Heart's bloom.jpeg" alt="Heart's Bloom" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Heart\'s Bloom', 400)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Heart's Bloom</div>
+        <div class="product-scent">Bright · Floral · Joyful</div>
+        <div class="product-footer">
+          <div class="product-price">400 EGP</div>
+          <button class="add-btn" onclick="addToCart('Heart\'s Bloom', 400)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product-card reveal" data-category="candles" style="transition-delay:0.4s">
+      <div class="product-img-wrap">
+        <img src="public/SnowyLATTE.jpeg" alt="Snowy Latte" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Snowy Latte', 350)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Snowy Latte</div>
+        <div class="product-scent">Warm · Milky · Winter</div>
+        <div class="product-footer">
+          <div class="product-price">350 EGP</div>
+          <button class="add-btn" onclick="addToCart('Snowy Latte', 350)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra Product 5 -->
+    <div class="product-card extra-product reveal visible" data-category="candles">
+      <div class="product-img-wrap">
+        <img src="public/(SCENT) Normal candle.jpeg" alt="(SCENT) Normal candle" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('(SCENT) Normal candle', 300)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">(SCENT) Normal</div>
+        <div class="product-scent">Classic · Neutral · Pure</div>
+        <div class="product-footer">
+          <div class="product-price">300 EGP</div>
+          <button class="add-btn" onclick="addToCart('(SCENT) Normal candle', 300)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra Product 6 -->
+    <div class="product-card extra-product reveal visible" data-category="candles">
+      <div class="product-img-wrap">
+        <img src="public/Blooming love.jpeg" alt="Blooming love" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Blooming love', 300)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Blooming love</div>
+        <div class="product-scent">Floral · Fresh · Sweet</div>
+        <div class="product-footer">
+          <div class="product-price">300 EGP</div>
+          <button class="add-btn" onclick="addToCart('Blooming love', 300)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra Product 7 -->
+    <div class="product-card extra-product reveal visible" data-category="candles">
+      <div class="product-img-wrap">
+        <img src="public/Love flame.jpeg" alt="Love flame" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Love flame', 400)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Love flame</div>
+        <div class="product-scent">Spicy · Warm · Passionate</div>
+        <div class="product-footer">
+          <div class="product-price">400 EGP</div>
+          <button class="add-btn" onclick="addToCart('Love flame', 400)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giveaway 1: Bubble -->
+    <div class="product-card extra-product reveal" data-category="giveaways">
+      <div class="product-img-wrap">
+        <img src="public/Bubble.jpeg" alt="Bubble Giveaway" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Bubble Giveaway', 50)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Bubble</div>
+        <div class="product-scent">30 EGP (Orders 30+ pcs)</div>
+        <div class="product-footer">
+          <div class="product-price">50 EGP</div>
+          <button class="add-btn" onclick="addToCart('Bubble Giveaway', 50)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giveaway 2: flower Bouquet -->
+    <div class="product-card extra-product reveal" data-category="giveaways">
+      <div class="product-img-wrap">
+        <img src="public/flower Bouquet.jpeg" alt="Flower Bouquet" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Flower Bouquet', 150)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Flower Bouquet</div>
+        <div class="product-scent">Mini version: 70 EGP</div>
+        <div class="product-footer">
+          <div class="product-price">150 EGP</div>
+          <button class="add-btn" onclick="addToCart('Flower Bouquet', 150)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giveaway 3: Metal Tin -->
+    <div class="product-card extra-product reveal" data-category="giveaways">
+      <div class="product-img-wrap">
+        <img src="public/Metal Tin.jpeg" alt="Metal Tin" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Metal Tin', 150)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Metal Tin</div>
+        <div class="product-scent">80 EGP (Orders 20+ pcs)</div>
+        <div class="product-footer">
+          <div class="product-price">150 EGP</div>
+          <button class="add-btn" onclick="addToCart('Metal Tin', 150)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giveaway 4: Sunflower -->
+    <div class="product-card extra-product reveal" data-category="giveaways">
+      <div class="product-img-wrap">
+        <img src="public/Sunflower.jpeg" alt="Sunflower" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Sunflower', 50)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Sunflower</div>
+        <div class="product-scent">30 EGP (Orders 20+ pcs)</div>
+        <div class="product-footer">
+          <div class="product-price">50 EGP</div>
+          <button class="add-btn" onclick="addToCart('Sunflower', 50)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giveaway 5: Mini scented jar -->
+    <div class="product-card extra-product reveal" data-category="giveaways">
+      <div class="product-img-wrap">
+        <img src="public/Mini scented jar.jpeg" alt="Mini Scented Jar" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Mini Scented Jar', 50)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Mini Scented Jar</div>
+        <div class="product-scent">20 EGP (Orders 30+ pcs)</div>
+        <div class="product-footer">
+          <div class="product-price">50 EGP</div>
+          <button class="add-btn" onclick="addToCart('Mini Scented Jar', 50)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diffuser 1: Closet wax fresheners -->
+    <div class="product-card extra-product reveal" data-category="diffusers">
+      <div class="product-img-wrap">
+        <img src="public/Closet wax fresheners.jpeg" alt="Closet Wax Fresheners" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Closet Wax Fresheners', 90)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Closet Wax Fresheners</div>
+        <div class="product-scent">Lasting room fragrance</div>
+        <div class="product-footer">
+          <div class="product-price">90 EGP</div>
+          <button class="add-btn" onclick="addToCart('Closet Wax Fresheners', 90)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diffuser 2: Car diffuser -->
+    <div class="product-card extra-product reveal" data-category="diffusers">
+      <div class="product-img-wrap">
+        <img src="public/Car diffuser.jpeg" alt="Car Diffuser" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="product-overlay">
+          <button class="overlay-btn" onclick="addToCart('Car Diffuser', 100)">Add to Basket</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Car Diffuser</div>
+        <div class="product-scent">Fresh scent for your car</div>
+        <div class="product-footer">
+          <div class="product-price">100 EGP</div>
+          <button class="add-btn" onclick="addToCart('Car Diffuser', 100)">+</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<div class="story-section" id="story">
+  <div class="story-visual">
+    <img src="public/hero.jpeg" alt="Our Story" style="width: 100%; height: 100%; object-fit: cover;">
+  </div>
+  <div class="story-content">
+    <p class="section-tag reveal">✦ Our Story</p>
+    <h2 class="section-title reveal">Born from a love<br>of <em>slow living</em></h2>
+    <blockquote class="story-quote reveal">"A candle is a small act of self-care that changes everything."</blockquote>
+    <p class="story-text reveal">Celebrjee was born in a tiny kitchen studio with a dream: to create candles that felt like coming home. Each wick is hand-trimmed, each pour timed by hand, each scent composed like a piece of music — with intention, patience, and love.</p>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="reveal">
+    <p class="section-tag">✦ Shop By Mood</p>
+    <h2 class="section-title">Find Your <em>Perfect</em> Match</h2>
+  </div>
+  <div class="categories-grid">
+    <div class="cat-card reveal" onclick="filterCategory('candles')">
+      <div class="cat-visual" style="background: #e8dfd0;">
+        <img src="public/Candles.jpeg" alt="Candles" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="cat-overlay">
+        <div class="cat-info">
+          <span class="cat-name">Candles</span>
+          <span class="cat-count">Our signature collection</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-card reveal" style="transition-delay:0.15s" onclick="filterCategory('giveaways')">
+      <div class="cat-visual" style="background: #ddd4c4;">
+        <img src="public/Giveaways.jpeg" alt="Giveaways" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="cat-overlay">
+        <div class="cat-info">
+          <span class="cat-name">Giveaways</span>
+          <span class="cat-count">Beautifully packed gifts</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-card reveal" style="transition-delay:0.3s" onclick="filterCategory('diffusers')">
+      <div class="cat-visual" style="background: #cec4b4;">
+        <img src="public/Diffusers.jpeg" alt="Diffusers" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="cat-overlay">
+        <div class="cat-info">
+          <span class="cat-name">Diffusers</span>
+          <span class="cat-count">Lasting room fragrances</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENT FINDER -->
+<section class="scent-section" id="scents">
+  <p class="section-tag">✦ Scent Finder</p>
+  <h2 class="section-title">How are you <em>feeling</em><br>today?</h2>
+  <p class="scent-desc">Tell us your mood and we'll match you with a candle that speaks your language. Because the right scent can change everything.</p>
+  <div class="scent-moods">
+    <button class="mood-chip active" onclick="setMood(this)">Cozy & Warm</button>
+    <button class="mood-chip" onclick="setMood(this)">Bold & Energetic</button>
+    <button class="mood-chip" onclick="setMood(this)">Romantic</button>
+    <button class="mood-chip" onclick="setMood(this)">Bright & Joyful</button>
+    <button class="mood-chip" onclick="setMood(this)">Pure & Simple</button>
+    <button class="mood-chip" onclick="setMood(this)">Sweet & Floral</button>
+    <button class="mood-chip" onclick="setMood(this)">Spicy & Passionate</button>
+  </div>
+  <button class="btn-primary" id="moodResult" onclick="findScent()">Find My Scent</button>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="reveal" style="text-align:center; margin-bottom: 0">
+    <p class="section-tag" style="text-align:center">✦ Reviews</p>
+    <h2 class="section-title">What Our <em>Community</em> Says</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <p class="testimonial-text">The moment I lit the Iced Coffee candle, my whole apartment transformed. The scent is refreshing and bold without being overwhelming — pure magic.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">S</div>
+        <div>
+          <div class="author-name">Sofia M.</div>
+          <div class="author-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal" style="transition-delay:0.15s">
+      <p class="testimonial-text">I've bought candles from everywhere, but Celebrjee is something else. The packaging is beautiful and the scent throw is incredible — I can smell it from three rooms away.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">L</div>
+        <div>
+          <div class="author-name">Layla H.</div>
+          <div class="author-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal" style="transition-delay:0.3s">
+      <p class="testimonial-text">Gifted a set to my sister and she called me immediately asking where they were from. Now we both have a monthly order. These candles are genuinely life-changing.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">N</div>
+        <div>
+          <div class="author-name">Nour A.</div>
+          <div class="author-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-deco">✦</div>
+  <div class="newsletter-inner">
+    <p class="section-tag reveal">✦ Stay Connected</p>
+    <h2 class="section-title reveal">Follow our <em>journey</em></h2>
+    <p class="newsletter-desc reveal">Join our community on social media for daily inspiration, exclusive behind-the-scenes, and the latest scent releases.</p>
+    <div class="hero-ctas reveal" style="justify-content: center; margin-top: 30px;">
+      <a href="https://www.instagram.com/celebrjee" target="_blank" class="btn-primary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        Instagram
+      </a>
+      <a href="https://www.tiktok.com/@celebrjee?_r=1&_t=ZS-95NMSiD7xKu" target="_blank" class="btn-ghost" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+        TikTok
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">Celebr<span style="font-style:italic;color:var(--bronze)">jee</span></a>
+      <p>Handcrafted luxury candles made with love, intention, and the finest natural ingredients. Every flame tells a story.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Celebrjee. All rights reserved. Made with ♡ for slow living.</p>
+    <p>Privacy Policy · Terms of Service · Cookie Preferences</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
