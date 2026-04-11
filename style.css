@@ -1122,16 +1122,21 @@ footer {
 
 @media (max-width: 768px) {
   .qv-grid { grid-template-columns: 1fr; }
-  .qv-image-side { height: 350px; }
-  .qv-details-side { padding: 40px 30px; }
-  .qv-title { font-size: 34px; }
-  .qv-content { max-height: 95vh; border-radius: 0; }
+  .qv-image-side { height: 300px; }
+  .qv-details-side { padding: 30px; }
+  .qv-title { font-size: 32px; }
+  .qv-content { max-height: 90vh; width: 95%; border-radius: 20px; }
   .qv-close { background: white; top: 15px; right: 15px; }
 }
 
 @media (max-width: 480px) {
-  .qv-modal { padding: 0; }
-  .qv-image-side { height: 300px; }
-  .qv-details-side { padding: 30px 24px; }
-  .qv-features { flex-wrap: wrap; gap: 10px; }
+  .qv-modal { padding: 15px; }
+  .qv-content { width: 100%; max-height: 85vh; border-radius: 20px; }
+  .qv-image-side { height: 220px; }
+  .qv-details-side { padding: 25px 20px; }
+  .qv-title { font-size: 28px; }
+  .qv-desc { margin-bottom: 25px; font-size: 13px; }
+  .qv-features { margin-bottom: 25px; gap: 12px; }
+  .qv-price { font-size: 26px; margin-bottom: 20px; }
+  .qv-close { top: 12px; right: 12px; width: 34px; height: 34px; font-size: 16px; }
 }
