@@ -267,3 +267,33 @@ window.addEventListener('load', () => {
      }, 50);
   }
 });
+
+// Quick View Modal
+function openQuickView(name, price, img, scent) {
+  const modal = document.getElementById('qvModal');
+  const qvImage = document.getElementById('qvImage');
+  const qvTitle = document.getElementById('qvTitle');
+  const qvPrice = document.getElementById('qvPrice');
+  const qvScent = document.getElementById('qvScent');
+  const qvAddBtn = document.getElementById('qvAddBtn');
+
+  qvImage.src = img;
+  qvTitle.textContent = name;
+  qvPrice.textContent = price + ' EGP';
+  qvScent.textContent = scent;
+  qvAddBtn.onclick = () => {
+    addToCart(name, price);
+    closeQuickView();
+  };
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden'; 
+}
+
+function closeQuickView() {
+  const modal = document.getElementById('qvModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
