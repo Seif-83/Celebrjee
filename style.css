@@ -1078,7 +1078,32 @@ footer {
   font-weight: 300;
   color: var(--text-light);
   font-size: 16px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+}
+
+/* Size Picker */
+.qv-size-picker {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.qv-size-btn {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border: 1px solid var(--beige);
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+.qv-size-btn.active {
+  background: var(--warm-brown);
+  color: var(--white);
+  border-color: var(--warm-brown);
 }
 
 .qv-price {

@@ -158,7 +158,7 @@
 
     <!-- Product 1 -->
     <div class="product-card reveal" data-category="candles" style="transition-delay:0.1s">
-      <div class="product-img-wrap" onclick="openQuickView('Iced Coffee', 400, 'public/Iced coffee.jpeg', 'Cool · Refreshing · Bold')">
+      <div class="product-img-wrap" onclick="openQuickView('Iced Coffee', 400, 'public/Iced coffee.jpeg', 'Cool · Refreshing · Bold', 275)">
         <span class="product-badge">Best Seller</span>
         <img src="public/Iced coffee.jpeg" alt="Iced Coffee" style="width: 100%; height: 100%; object-fit: cover;">
         <div class="product-overlay">
@@ -177,7 +177,7 @@
 
     <!-- Product 2 -->
     <div class="product-card reveal" data-category="candles" style="transition-delay:0.2s">
-      <div class="product-img-wrap" onclick="openQuickView('Iced Love', 400, 'public/Iced love.jpeg', 'Sweet · Chilled · Romantic')">
+      <div class="product-img-wrap" onclick="openQuickView('Iced Love', 400, 'public/Iced love.jpeg', 'Sweet · Chilled · Romantic', 275)">
         <img src="public/Iced love.jpeg" alt="Iced Love" style="width: 100%; height: 100%; object-fit: cover;">
         <div class="product-overlay">
           <button class="overlay-btn">View Details</button>
@@ -214,7 +214,7 @@
 
     <!-- Product 4 -->
     <div class="product-card reveal" data-category="candles" style="transition-delay:0.4s">
-      <div class="product-img-wrap" onclick="openQuickView('Snowy Latte', 350, 'public/SnowyLATTE.jpeg', 'Warm · Milky · Winter')">
+      <div class="product-img-wrap" onclick="openQuickView('Snowy Latte', 350, 'public/SnowyLATTE.jpeg', 'Warm · Milky · Winter', 250)">
         <img src="public/SnowyLATTE.jpeg" alt="Snowy Latte" style="width: 100%; height: 100%; object-fit: cover;">
         <div class="product-overlay">
           <button class="overlay-btn">View Details</button>
@@ -232,7 +232,7 @@
 
     <!-- Extra Product 5 -->
     <div class="product-card extra-product reveal visible" data-category="candles">
-      <div class="product-img-wrap" onclick="openQuickView('(SCENT) Normal candle', 300, 'public/(SCENT) Normal candle.jpeg', 'Classic · Neutral · Pure')">
+      <div class="product-img-wrap" onclick="openQuickView('(SCENT) Normal candle', 300, 'public/(SCENT) Normal candle.jpeg', 'Classic · Neutral · Pure', 230)">
         <img src="public/(SCENT) Normal candle.jpeg" alt="(SCENT) Normal candle" style="width: 100%; height: 100%; object-fit: cover;">
         <div class="product-overlay">
           <button class="overlay-btn">View Details</button>
@@ -268,7 +268,7 @@
 
     <!-- Extra Product 7 -->
     <div class="product-card extra-product reveal visible" data-category="candles">
-      <div class="product-img-wrap" onclick="openQuickView('Love flame', 400, 'public/Love flame.jpeg', 'Spicy · Warm · Passionate')">
+      <div class="product-img-wrap" onclick="openQuickView('Love flame', 400, 'public/Love flame.jpeg', 'Spicy · Warm · Passionate', 275)">
         <img src="public/Love flame.jpeg" alt="Love flame" style="width: 100%; height: 100%; object-fit: cover;">
         <div class="product-overlay">
           <button class="overlay-btn">View Details</button>
@@ -563,12 +563,16 @@
           <p class="qv-tag">Celebrjee Artisan Series</p>
           <h2 class="qv-title" id="qvTitle">Product Name</h2>
           <p class="qv-scent" id="qvScent">Cool · Refreshing · Bold</p>
+          <div class="qv-size-picker" id="qvSizePicker">
+            <button class="qv-size-btn active" id="qvBtnRegular" onclick="selectSize('regular')">Regular</button>
+            <button class="qv-size-btn" id="qvBtnMini" onclick="selectSize('mini')">Mini</button>
+          </div>
           <div class="qv-price" id="qvPrice">400 EGP</div>
           <p class="qv-desc">Experience the artisanal excellence of Celebrjee. Hand-poured with premium soy wax and curated fragrances to transform your space into a sanctuary of calm.</p>
           <div class="qv-features">
-            <div class="qv-f-item">✦ 50hr Burn</div>
-            <div class="qv-f-item">✦ Soy Wax</div>
+            <div class="qv-f-item">✦ Natural Soy Wax</div>
             <div class="qv-f-item">✦ Hand Poured</div>
+            <div class="qv-f-item" id="qvBurnTime">✦ 50hr Burn</div>
           </div>
           <button class="btn-primary qv-add-btn" id="qvAddBtn">Add to Basket</button>
         </div>

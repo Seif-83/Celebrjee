@@ -269,25 +269,62 @@ window.addEventListener('load', () => {
 });
 
 // Quick View Modal
-function openQuickView(name, price, img, scent) {
+let _qvRegularPrice = 0;
+let _qvMiniPrice = 0;
+let _qvName = '';
+let _qvSelectedSize = 'regular';
+
+function openQuickView(name, price, img, scent, miniPrice) {
   const modal = document.getElementById('qvModal');
   const qvImage = document.getElementById('qvImage');
   const qvTitle = document.getElementById('qvTitle');
   const qvPrice = document.getElementById('qvPrice');
   const qvScent = document.getElementById('qvScent');
-  const qvAddBtn = document.getElementById('qvAddBtn');
+  const qvSizePicker = document.getElementById('qvSizePicker');
+  const qvBurnTime = document.getElementById('qvBurnTime');
+
+  _qvName = name;
+  _qvRegularPrice = price;
+  _qvMiniPrice = miniPrice || null;
+  _qvSelectedSize = 'regular';
 
   qvImage.src = img;
   qvTitle.textContent = name;
-  qvPrice.textContent = price + ' EGP';
   qvScent.textContent = scent;
-  qvAddBtn.onclick = () => {
-    addToCart(name, price);
+  qvPrice.textContent = price + ' EGP';
+  qvBurnTime.textContent = '✦ 50hr Burn';
+
+  // Show or hide size picker
+  if (miniPrice) {
+    qvSizePicker.style.display = 'flex';
+    document.getElementById('qvBtnRegular').classList.add('active');
+    document.getElementById('qvBtnMini').classList.remove('active');
+  } else {
+    qvSizePicker.style.display = 'none';
+  }
+
+  updateQvAddBtn();
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function selectSize(size) {
+  _qvSelectedSize = size;
+  const price = size === 'mini' ? _qvMiniPrice : _qvRegularPrice;
+  document.getElementById('qvPrice').textContent = price + ' EGP';
+  document.getElementById('qvBtnRegular').classList.toggle('active', size === 'regular');
+  document.getElementById('qvBtnMini').classList.toggle('active', size === 'mini');
+  document.getElementById('qvBurnTime').textContent = size === 'mini' ? '✦ 25hr Burn' : '✦ 50hr Burn';
+  updateQvAddBtn();
+}
+
+function updateQvAddBtn() {
+  const price = _qvSelectedSize === 'mini' ? _qvMiniPrice : _qvRegularPrice;
+  const label = _qvSelectedSize === 'mini' ? 'Mini ' : '';
+  document.getElementById('qvAddBtn').onclick = () => {
+    addToCart(label + _qvName, price);
     closeQuickView();
   };
-
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden'; 
 }
 
 function closeQuickView() {
