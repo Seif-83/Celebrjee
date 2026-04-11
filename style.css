@@ -882,7 +882,7 @@ footer {
   body { cursor: auto; }
   .cursor, .cursor-ring { display: none; }
 
-  nav { padding: 15px 30px; background: var(--cream); border-bottom: 1px solid var(--beige); z-index: 3000; }
+  nav { padding: 15px 30px; background: var(--cream); border-bottom: 1px solid var(--beige); z-index: 5000; }
   .mobile-menu-btn { display: block; }
 
   /* Left to Right Mobile Menu */
